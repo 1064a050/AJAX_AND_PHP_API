@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,34 @@
     <title>XMLHttpRequest</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-</head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .title{
+            border: 1px solid black;
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+        }
+        #list li{
+            margin: 5px 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        #list li:hover{
+
+        }
+    </style>
+    </head>
+
 <body>
     <h1 class="header">XMLHttpRequest</h1>
     <div class="title"></div>
     <h4></h4>
-    <ul></ul>
+    <ul id="list"></ul>
 
 </body>
+
 </html>
 <script>
     /********************************************************
@@ -26,14 +47,32 @@
     ********************************************************/
 
     //宣告一個XMLHttpRequest物件
-
+    let xhr = new XMLHttpRequest;
 
     //建立請求的各項設定及實質內容
+    xhr.open('GET', 'https://kktix.com/events.json', true)
 
 
     //建立得到回應時的各項設定及行為
-
+    xhr.onload = function () {
+        let type = xhr.getResponseHeader('Content-Type');
+        let status = xhr.status
+        let res = JSON.parse(xhr.responseText);
+        $(".title").html(res.title)
+        let list=""
+        res.entry.forEach(function(e,i){
+            // console.log(e.title)
+            list=list+`<li>
+                <div>${e.title}</div>
+                <div>${e.title}</div>
+                <div>${e.title}</div>
+                </li>`;
+        });
+        console.log(list)
+        $("#list").html()
+        console.log(type, status, res);
+    }
 
     //送出請求
-
-    </script>
+    xhr.send();
+</script>

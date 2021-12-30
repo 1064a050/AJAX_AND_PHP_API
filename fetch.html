@@ -25,10 +25,29 @@
     ********************************************************/
 
     //建立FETCH請求及實質內容
+    fetch('https://kktix.com/events.json',{method})
+    .then(function(res){
+        return res.json()
+    })
+    .then(function(data){
 
+    
 
     //建立回呼函式(call back function)來處理回應時的各項行為
-
+    $(".title").html(data.title)
+        let list=""
+        data.entry.forEach(function(e,i){
+            //console.log(e.title)
+            list=list+`<li>
+                        <div>${e.title}</div>
+                        <div>${e.summary}</div>
+                        <div>${e.content}</div>
+                        </li>`;
+        });
+        console.log(list)
+        $("#list").html(list)
+        console.log(data)
+    })
 
     //建立錯誤處理
 
